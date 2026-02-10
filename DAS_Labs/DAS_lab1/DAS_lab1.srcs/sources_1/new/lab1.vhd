@@ -32,11 +32,12 @@ begin
     resize(leftOp + rightOp, 16)    when X"0",
     resize(leftOp - rightOp, 16)    when X"1",
     resize(-rightOp, 16)            when X"2",
-    leftOp * rightOp                when X"3";
+    leftOp * rightOp                when X"3",
+    resize(-rightOp, 16)            when others; --change?
     
     leds <= std_logic_vector(result);
     digit <= std_logic_vector(result(3 downto 0));
     an_n <= "1110"; --???
     converter : bin2segs
-    port map (en => HI, bin => digit, dp => LO, segs_n => segs_n); --segs => digit ??
+    port map (en => HI, bin => digit, dp => LO, segs_n => segs_n);
 end syn;
