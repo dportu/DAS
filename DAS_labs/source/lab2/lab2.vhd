@@ -24,6 +24,7 @@ entity lab2 is
       clear     : in  std_logic;
       startStop : in  std_logic;
       lap       : in  std_logic;
+      reset     : in  std_logic; -- btnr
       leds      : out std_logic_vector(15 downto 0)
       );
 end lab2;
@@ -34,8 +35,21 @@ use work.common.all;
 
 architecture syn of lab2 is
 
-  component modCounter
-  end component;
+  
+component modCounter
+    generic
+    (
+        MAXVAL : natural -- valor máximo alcanzable
+    );
+    port
+    (
+        clk : in std_logic; -- reloj del sistema
+        rst : in std_logic; -- reset (puesta a 0) síncrono
+        ce : in std_logic; -- capacitación de cuenta
+        tc : out std_logic; -- fin de cuenta
+        count : out std_logic_vector(log2(MAXVAL)-1 downto 0) -- cuenta
+    );
+end component;
 
   constant FREQ_KHZ  : natural := 100_000;  -- frecuencia de operacion en KHz
   constant BOUNCE_MS : natural := 50;  -- tiempo de rebote de los pulsadores en ms
@@ -50,6 +64,7 @@ architecture syn of lab2 is
   -- Conexiones
 
   signal clearSync                                  : std_logic;
+  signal resetSync                                  : std_logic;
   signal startStopSync, startStopDeb, startStopRise : std_logic;
   signal lapSync, lapDeb, lapRise                   : std_logic;
 
@@ -63,36 +78,40 @@ architecture syn of lab2 is
 begin
 
   clearSynchronizer : synchronizer
-    generic map (...)
-    port map (...);
+    generic map (STAGES => 2, XPOL => '0')
+    port map (clk => clk, x => clear, xSync => clearSync);
+    
+   resetSynchronizer : synchronizer
+    generic map (STAGES => 2, XPOL => '0')
+    port map (clk => clk, x => reset, xSync => resetSync);
 
   ------------------  
 
   startStopSynchronizer : synchronizer
     generic map (STAGES => 2, XPOL => '0')
-    port map (...);
+    port map (clk => clk, x => startStop, xSync => startStopSync);
 
   startStopDebouncer : debouncer
     generic map (FREQ_KHZ => FREQ_KHZ, BOUNCE_MS => BOUNCE_MS, XPOL => '0')
-    port map (...);
+    port map (clk => clk, rst => resetSync, x => startStopSync, xDeb => startStopDeb);
 
   startStopEdgeDetector : edgeDetector
-    generic map (XPOL    => '0')
-    port map (..., xFall => open);
+    generic map (XPOL => '0')
+    port map (clk => clk, x => startStopDeb, xFall => open, xRise => startStopRise);
 
   ------------------  
 
   lapSynchronizer : synchronizer
-    generic map (...)
-    port map (...);
+    generic map (STAGES => 2, XPOL => '0')
+    port map (clk => clk, x => clear, xSync => lapSync);
 
   lapDebouncer : debouncer
-    generic map (...)
-    port map (...);
+    generic map (FREQ_KHZ => FREQ_KHZ, BOUNCE_MS => BOUNCE_MS, XPOL => '0')
+    port map (clk => clk, rst => resetSync, x => lapSync, xDeb => lapDeb);
 
   lapEdgeDetector : edgeDetector
-    generic map (...)
-    port map (...);
+    generic map (XPOL => '0')
+    port map (clk => clk, x => lapDeb, xFall => open, xRise => lapRise);
 
   ------------------  
 
@@ -101,54 +120,58 @@ begin
   begin
     if rising_edge(clk) then
       if clearSync = '1' then
-        startStopTFF <= ...;
-      lapTFF <= ...;
+        startStopTFF <= '0';
+        lapTFF <= '0';
     else
-      if ... then
-        startStopTFF <= ...;
+      if (startStopRise = '1') then
+        startStopTFF <= not startStopTFF;
       end if;
-      if ... then
-        lapTFF <= ...;
+      if (lapRise = '1') then
+        lapTFF <= not lapTFF;
       end if;
     end if;
   end if;
 end process;
 
+
 cycleCounter : modCounter
   generic map (MAXVAL => ms2cycles(FREQ_KHZ, 100)-1)
-  port map (...);
+  port map (clk => clk, rst => resetSync, ce => startStopTFF, tc => cycleCntTC, count => open);
 
 decCounter : modCounter
   generic map (MAXVAL => 9)
-  port map (...);
+  port map (clk => clk, rst => resetSync, ce => cycleCntTC, tc => decCntTC, count => decCnt);
 
 secLowCounter : modCounter
-  generic map (...)
-  port map (...);
+  generic map (MAXVAL => 9)
+  port map (clk => clk, rst => resetSync, ce => decCntTC, tc => secLowCntTC, count => secLowCnt);
 
 secHighCounter : modCounter
-  generic map (...)
-  port map (...);
+  generic map (MAXVAL => 5)
+  port map (clk => clk, rst => resetSync, ce => startStopTFF, tc => open, count => secHighCnt);
 
 lapRegisters :
 process (clk)
 begin
-  if rising_edge(clk) then
-    if clearSync = '1' then
-        secLowReg <= ...;
-    secHighReg <= ...;
-  elsif ... then
-    secLowReg  <= ...;
-    secHighReg <= ...;
-  end if;
+if rising_edge(clk) then
+    if resetSync = '1' then
+        secLowReg <= (others => '0');
+        secHighReg <= (others => '0');
+    elsif resetSync = '1' then
+        secLowReg <= (others => '0');
+        secHighReg <= (others => '0');
+    elsif lapRise = '1' then 
+        secLowReg  <= secLowCnt; 
+        secHighReg <= secHighCnt;
+    end if;
 end if;
 end process;
 
 leftMux :
-  secHighMux <= ... when ... else ...;
+  secHighMux <= secHighCnt when lapTFF = '1' else secHighMux <= secHighReg; --hacer bien, no son el mismo tipo (3vs4 bits)
 
 rigthMux :
-  secLowMux <= ... when ... else ...;
+  secLowMux <= secLowCnt when ... else ...;
 
 leds <= ...;
 

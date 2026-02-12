@@ -33,21 +33,17 @@ end synchronizer;
 -------------------------------------------------------------------
 
 architecture syn of synchronizer is 
+-- tenemos tantos flip-flops intermedios como stages, e inicializamos a la polaridad inicial
+signal aux : std_logic_vector(STAGES-1 downto 0) := (others => XPOL); 
 begin
-
---aux <= (aux(0), x);
--- poner reset en todo
--- reset no puede ser una señal funcional
--- el reset tiene que estar en todos los registros y debe ser llamado tras el power up
--- dividir clear y reset
-
- process (clk)
-    variable aux : std_logic_vector(1 downto 0) := "0";
+    xSync <= aux(STAGES-1);
+    process (clk)
     begin
-        xSync <= aux(1);
         if rising_edge(clk) then
-            aux(1) := aux(0);
-            aux(0) := x;
+            for i in STAGES-1 downto 1 loop
+                aux(i) <= aux(i-1);
+            end loop;
+            aux(0) <= x;
         end if;
 end process;
 
