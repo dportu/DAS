@@ -29,21 +29,21 @@ begin
     begin
         if rising_edge(clk) then
             if rst='1' then
-                cs <= ...; --meter 0
+                cs <= "0"; --meter 0
             elsif ce='1' then
-                if ... then --count = MAXVALUE
-                    cs <= ...; --meter 0
+                if cs = MAXVAL then --count = MAXVALUE
+                    cs <= "0"; --meter 0
                 else
-                    cs <= ...; --+1
+                    cs <= cs+1; --+1
                 end if;
             end if;
         end if;
     end process;
 
-    count <= ...; -- cs pasado a std_logic_vector
+    count <= std_logic_vector(cs); -- cs pasado a std_logic_vector
 
     tc <=
-        '1' when ... else -- ce && cs==MAXVAL
+        '1' when ce & cs=MAXVAL else -- ce && cs==MAXVAL
         '0';
 
 end syn;

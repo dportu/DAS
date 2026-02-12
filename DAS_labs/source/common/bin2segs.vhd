@@ -17,15 +17,15 @@ begin
 with bin select
  segs(6 downto 0) <=
  "0000001"  when X"0",
- "100111"   when X"1",
+ "1001111"   when X"1",
  "0010010"  when X"2",
  "0000110"  when X"3",
- "1001110"  when X"4",
+ "1001100"  when X"4",
  "0100100"  when X"5",
  "0100000"  when X"6",
  "0001111"  when X"7",
  "0000000"  when X"8",
  "0001100"  when X"9",
  "1111111" when others;
- segs_n <= segs when en='1' else "1111111";
+ segs_n <= segs when en='1' else "11111111";
 end syn;

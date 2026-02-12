@@ -7,6 +7,17 @@ constant LO : std_logic := '0';
 function log2(v : in natural) return natural;
  --...
  
+
+
+component synchronizer
+port (
+    clk   : in  std_logic;   -- reloj del sistema
+    x     : in  std_logic;   -- entrada binaria a sincronizar
+    xSync : out std_logic    -- salida sincronizada que sigue a la entrada
+);
+end component;
+
+
 -- Convierte codigo binario a codigo 7-segmentos
 component bin2segs
 port
@@ -23,17 +34,17 @@ end component;
 end package common;
 
 package body common is
- function log2(v : in natural) return natural is
- variable n : natural;
- variable logn : natural;
- begin
- n := 1;
- for i in 0 to 128 loop
- logn := i;
- exit when (n >= v);
- n := n * 2;
- end loop;
- return logn;
- end function log2;
+     function log2(v : in natural) return natural is
+         variable n : natural;
+         variable logn : natural;
+         begin
+             n := 1;
+             for i in 0 to 128 loop
+                 logn := i;
+                 exit when (n >= v);
+                 n := n * 2;
+             end loop;
+         return logn;
+     end function log2;
 --...
 end package body common;
