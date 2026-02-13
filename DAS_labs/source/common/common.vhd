@@ -26,11 +26,11 @@ component debouncer
     generic(
         FREQ_KHZ  : natural;    -- frecuencia de operacion en KHz
         BOUNCE_MS : natural;    -- tiempo de rebote en ms
-        XPOL      : std_logic   -- polaridad (valor en reposo) de la señal a la que eliminar rebotes
+        XPOL      : std_logic   -- polaridad (valor en reposo) de la se al a la que eliminar rebotes
     );
     port (
         clk  : in  std_logic;   -- reloj del sistema
-        rst  : in  std_logic;   -- reset síncrono del sistema
+        rst  : in  std_logic;   -- reset s ncrono del sistema
         x    : in  std_logic;   -- entrada binaria a la que deben eliminarse los rebotes
         xDeb : out std_logic    -- salida que sique a la entrada pero sin rebotes
     );
@@ -38,7 +38,7 @@ end component;
 
 component edgeDetector
     generic(
-        XPOL  : std_logic         -- polaridad (valor en reposo) de la señal a la que eliminar rebotes
+        XPOL  : std_logic         -- polaridad (valor en reposo) de la se al a la que eliminar rebotes
     );
     port (
         clk   : in  std_logic;   -- reloj del sistema

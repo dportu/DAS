@@ -29,10 +29,10 @@ begin
     begin
         if rising_edge(clk) then
             if rst='1' then
-                cs <= "0"; --meter 0
+                cs <= (others => '0'); --meter 0
             elsif ce='1' then
                 if cs = MAXVAL then --count = MAXVALUE
-                    cs <= "0"; --meter 0
+                    cs <= (others => '0'); --meter 0
                 else
                     cs <= cs+1; --+1
                 end if;

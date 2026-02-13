@@ -103,7 +103,7 @@ begin
 
   lapSynchronizer : synchronizer
     generic map (STAGES => 2, XPOL => '0')
-    port map (clk => clk, x => clear, xSync => lapSync);
+    port map (clk => clk, x => lap, xSync => lapSync);
 
   lapDebouncer : debouncer
     generic map (FREQ_KHZ => FREQ_KHZ, BOUNCE_MS => BOUNCE_MS, XPOL => '0')
@@ -119,7 +119,7 @@ begin
   process (clk)
   begin
     if rising_edge(clk) then
-      if clearSync = '1' then
+      if resetSync = '1' then
         startStopTFF <= '0';
         lapTFF <= '0';
     else
@@ -157,7 +157,7 @@ if rising_edge(clk) then
     if resetSync = '1' then
         secLowReg <= (others => '0');
         secHighReg <= (others => '0');
-    elsif resetSync = '1' then
+    elsif clearSync = '1' then
         secLowReg <= (others => '0');
         secHighReg <= (others => '0');
     elsif lapRise = '1' then 
@@ -168,11 +168,12 @@ end if;
 end process;
 
 leftMux :
-  secHighMux <= secHighCnt when lapTFF = '1' else secHighMux <= secHighReg; --hacer bien, no son el mismo tipo (3vs4 bits)
+  secHighMux <= ('0' & secHighReg) when lapTFF = '1' else ('0' & secHighCnt) ; 
 
 rigthMux :
-  secLowMux <= secLowCnt when ... else ...;
+  secLowMux <= secLowReg when lapTFF = '1' else secLowCnt;
 
-leds <= ...;
+-- startStopTFF & startStopRise & lapTFF estan puestos por debuggear
+leds <= decCnt(3) & "00"& startStopTFF & startStopRise & lapTFF & "00" & secHighMux & secLowMux ;
 
 end syn;
