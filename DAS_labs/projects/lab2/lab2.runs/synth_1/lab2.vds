@@ -1,0 +1,314 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Tue Feb 17 20:18:53 2026
+# Process ID: 9740
+# Current directory: C:/Users/usuario_local/Downloads/DAS_labs/projects/lab2/lab2.runs/synth_1
+# Command line: vivado.exe -log lab2.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source lab2.tcl
+# Log file: C:/Users/usuario_local/Downloads/DAS_labs/projects/lab2/lab2.runs/synth_1/lab2.vds
+# Journal file: C:/Users/usuario_local/Downloads/DAS_labs/projects/lab2/lab2.runs/synth_1\vivado.jou
+# Running On: PTO0423, OS: Windows, CPU Frequency: 2381 MHz, CPU Physical cores: 20, Host memory: 33752 MB
+#-----------------------------------------------------------
+source lab2.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental C:/Users/usuario_local/Downloads/DAS_labs/projects/lab2/lab2.srcs/utils_1/imports/synth_1/lab2.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/usuario_local/Downloads/DAS_labs/projects/lab2/lab2.srcs/utils_1/imports/synth_1/lab2.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top lab2 -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 14504
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 2722.242 ; gain = 411.359
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'lab2' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:36]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'synchronizer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:21' bound to instance 'clearSynchronizer' of component 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:80]
+INFO: [Synth 8-638] synthesizing module 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:35]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'synchronizer' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:35]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'synchronizer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:21' bound to instance 'resetSynchronizer' of component 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:84]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'synchronizer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:21' bound to instance 'startStopSynchronizer' of component 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:90]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BOUNCE_MS bound to: 50 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'debouncer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/debouncer.vhd:21' bound to instance 'startStopDebouncer' of component 'debouncer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:94]
+INFO: [Synth 8-638] synthesizing module 'debouncer' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/debouncer.vhd:39]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BOUNCE_MS bound to: 50 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'debouncer' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/debouncer.vhd:39]
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'edgeDetector' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/edgedetector.vhd:21' bound to instance 'startStopEdgeDetector' of component 'edgeDetector' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:98]
+INFO: [Synth 8-638] synthesizing module 'edgeDetector' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/edgedetector.vhd:35]
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'edgeDetector' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/edgedetector.vhd:35]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'synchronizer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:21' bound to instance 'lapSynchronizer' of component 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:104]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BOUNCE_MS bound to: 50 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'debouncer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/debouncer.vhd:21' bound to instance 'lapDebouncer' of component 'debouncer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:108]
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'edgeDetector' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/edgedetector.vhd:21' bound to instance 'lapEdgeDetector' of component 'edgeDetector' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:112]
+	Parameter MAXVAL bound to: 9999999 - type: integer 
+INFO: [Synth 8-3491] module 'modCounter' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:4' bound to instance 'cycleCounter' of component 'modCounter' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:137]
+INFO: [Synth 8-638] synthesizing module 'modCounter' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:22]
+	Parameter MAXVAL bound to: 9999999 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'modCounter' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:22]
+	Parameter MAXVAL bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'modCounter' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:4' bound to instance 'decCounter' of component 'modCounter' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:141]
+INFO: [Synth 8-638] synthesizing module 'modCounter__parameterized1' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:22]
+	Parameter MAXVAL bound to: 9 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'modCounter__parameterized1' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:22]
+	Parameter MAXVAL bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'modCounter' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:4' bound to instance 'secLowCounter' of component 'modCounter' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:145]
+	Parameter MAXVAL bound to: 5 - type: integer 
+INFO: [Synth 8-3491] module 'modCounter' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:4' bound to instance 'secHighCounter' of component 'modCounter' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:149]
+INFO: [Synth 8-638] synthesizing module 'modCounter__parameterized3' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:22]
+	Parameter MAXVAL bound to: 5 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'modCounter__parameterized3' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/modCounter.vhd:22]
+INFO: [Synth 8-256] done synthesizing module 'lab2' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.vhd:36]
+WARNING: [Synth 8-3917] design lab2 has port leds[14] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[13] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[9] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[8] driven by constant 0
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2813.293 ; gain = 502.410
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2831.219 ; gain = 520.336
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2831.219 ; gain = 520.336
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2831.219 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.xdc]
+Finished Parsing XDC File [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/usuario_local/Downloads/DAS_labs/source/lab2/lab2.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/lab2_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/lab2_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2943.910 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2943.910 ; gain = 0.000
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'fsm.state_reg' in module 'debouncer'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+          waitingkeydown |                               00 |                               00
+       keydowndebouncing |                               01 |                               01
+            waitingkeyup |                               10 |                               10
+         keyupdebouncing |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'fsm.state_reg' using encoding 'sequential' in module 'debouncer'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   24 Bit       Adders := 1     
+	   2 Input   23 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 1     
++---Registers : 
+	               24 Bit    Registers := 1     
+	               23 Bit    Registers := 2     
+	                4 Bit    Registers := 3     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 6     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input   24 Bit        Muxes := 1     
+	   2 Input   23 Bit        Muxes := 2     
+	   2 Input   22 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 2     
+	   4 Input    2 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 8     
+	   4 Input    1 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design lab2 has port leds[14] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[13] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[9] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[8] driven by constant 0
+WARNING: [Synth 8-3917] design lab2 has port leds[7] driven by constant 0
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    18|
+|3     |LUT1   |    47|
+|4     |LUT2   |    29|
+|5     |LUT3   |    15|
+|6     |LUT4   |    53|
+|7     |LUT5   |     1|
+|8     |LUT6   |     8|
+|9     |FDRE   |   106|
+|10    |IBUF   |     5|
+|11    |OBUF   |    16|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 633.027
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 6 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:08 ; elapsed = 00:00:12 . Memory (MB): peak = 2943.910 ; gain = 520.336
+Synthesis Optimization Complete : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2943.910 ; gain = 633.027
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2943.910 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 18 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2943.910 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 470cabb9
+INFO: [Common 17-83] Releasing license: Synthesis
+49 Infos, 10 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:27 . Memory (MB): peak = 2943.910 ; gain = 1014.641
+INFO: [Common 17-1381] The checkpoint 'C:/Users/usuario_local/Downloads/DAS_labs/projects/lab2/lab2.runs/synth_1/lab2.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file lab2_utilization_synth.rpt -pb lab2_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Feb 17 20:19:27 2026...
