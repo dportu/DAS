@@ -148,7 +148,7 @@ secLowCounter : modCounter
 
 secHighCounter : modCounter
   generic map (MAXVAL => 5)
-  port map (clk => clk, rst => resetSync, ce => startStopTFF, tc => open, count => secHighCnt);
+  port map (clk => clk, rst => resetSync, ce => secLowCntTC, tc => open, count => secHighCnt);
 
 lapRegisters :
 process (clk)
@@ -174,6 +174,6 @@ rigthMux :
   secLowMux <= secLowReg when lapTFF = '1' else secLowCnt;
 
 -- startStopTFF & startStopRise & lapTFF estan puestos por debuggear
-leds <= decCnt(3) & "00"& startStopTFF & startStopRise & lapTFF & "00" & secHighMux & secLowMux ;
+leds <= decCnt(0) & "00"& secLowCntTC & decCntTC & cycleCntTC & "00" & secHighMux & secLowMux ;
 
 end syn;

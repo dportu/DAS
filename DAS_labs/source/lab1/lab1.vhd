@@ -31,7 +31,7 @@ begin
     result <=
     resize(leftOp + rightOp, 16)    when X"0",
     resize(leftOp - rightOp, 16)    when X"1",
-    resize(-rightOp, 16)            when X"2",
+    resize(not rightOp, 16)         when X"2",
     leftOp * rightOp                when X"3",
     resize(-rightOp, 16)            when others; --change?
     

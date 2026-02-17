@@ -42,8 +42,8 @@ begin
 
     count <= std_logic_vector(cs); -- cs pasado a std_logic_vector
 
-    tc <=
-        '1' when ce & cs=MAXVAL else -- ce && cs==MAXVAL
-        '0';
+    tc <= 
+        '1' when (ce = '1' and cs = MAXVAL) 
+        else '0';
 
 end syn;

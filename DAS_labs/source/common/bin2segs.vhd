@@ -17,7 +17,7 @@ begin
 with bin select
  segs(6 downto 0) <=
  "0000001"  when X"0",
- "1001111"   when X"1",
+ "1001111"  when X"1",
  "0010010"  when X"2",
  "0000110"  when X"3",
  "1001100"  when X"4",
@@ -26,6 +26,12 @@ with bin select
  "0001111"  when X"7",
  "0000000"  when X"8",
  "0001100"  when X"9",
- "1111111" when others;
+ "0001000"  when X"A",
+ "1100000"  when X"B",
+ "0110001"  when X"C",
+ "1000010"  when X"D",
+ "0110000"  when X"E",
+ "0111000"  when X"F",
+ "0110000" when others;
  segs_n <= segs when en='1' else "11111111";
 end syn;
