@@ -8,8 +8,55 @@ function log2(v : in natural) return natural;
 function ms2cycles(FREQ_KHZ : in natural ; BOUNCE_MS : in natural) return natural;
  --...
  
+ 
+    -- Practica 3 --
+    
+component segsBankRefresher is
+  generic(
+    FREQ_KHZ : natural;   -- frecuencia de operacion en KHz
+    SIZE     : natural    -- número de displays a refrescar     
+  );
+  port (
+    -- host side
+    clk    : in std_logic;                              -- reloj del sistema
+    ens    : in std_logic_vector (SIZE-1 downto 0);     -- capacitaciones
+    bins   : in std_logic_vector (4*SIZE-1 downto 0);   -- códigos binarios a mostrar
+    dps    : in std_logic_vector (SIZE-1 downto 0);     -- puntos
+    -- 7 segs display side
+    an_n   : out std_logic_vector (SIZE-1 downto 0);    -- selector de display  
+    segs_n : out std_logic_vector (7 downto 0)          -- código 7 segmentos 
+  );
+end component;
+    
+component asyncRstSynchronizer is
+  generic (
+    STAGES : natural;         -- número de biestables del sincronizador
+    XPOL   : std_logic        -- polaridad (en reposo) de la señal de reset
+  );
+  port (
+    clk    : in  std_logic;   -- reloj del sistema
+    rstIn  : in  std_logic;   -- rst de entrada
+    rstOut : out std_logic    -- rst de salida
+  );
+end component;
+    
+component freqSynthesizer
+  generic(
+    FREQ_KHZ : natural;                 -- frecuencia del reloj de entrada en KHz
+    MULTIPLY : natural range 1 to 64;   -- factor por el que multiplicar la frecuencia de entrada 
+    DIVIDE   : natural range 1 to 128   -- divisor por el que dividir la frecuencia de entrada
+  );
+  port (
+    clkIn  : in  std_logic;   -- reloj de entrada
+    rdy    : out std_logic;   -- indica si el reloj de salida es válido
+    clkOut : out std_logic    -- reloj de salida
+  );
+end component;
 
 
+
+
+    -- Practica 2 --
 component synchronizer
 generic (
     STAGES  : natural;       -- n mero de biestables del sincronizador
@@ -48,7 +95,9 @@ component edgeDetector
     );
 end component;
 
- 
+
+
+    -- Practica 1 -- 
 
 -- Convierte codigo binario a codigo 7-segmentos
 component bin2segs
