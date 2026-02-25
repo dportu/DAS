@@ -56,9 +56,11 @@ architecture syn of lab3 is
   signal spin : std_logic_vector(2 downto 0);
   signal decCredit, incCredit, hasCredit : std_logic;
   signal cycleCntTC : std_logic;  
+  
+  
+  signal bins_aux: std_logic_vector(15 downto 0);
 
 begin
-
   rstAux <= rdy; -- ???
   
   resetSyncronizer : asyncRstSynchronizer
@@ -104,19 +106,51 @@ begin
     type states is (initial, S1, S2, S3, reward); 
     variable state: states := initial;
   begin 
-    decCredit <= ...;
-    incCredit <= ...;
-    spin      <= ...;
+    decCredit <= '0';
+    incCredit <= '0';
+    spin      <= (others => '0');
     case state is
-      when initial =>
-        ...
-    end case;
+        when initial =>
+            spin <= "000";
+          
+        when S1 =>
+            spin <= "111";
+            
+        when S2 =>
+            spin <= "011";
+        
+        when S3 =>
+            spin <= "001";
+            
+        when reward =>
+            spin <= "000";
+      end case;
+      
     if rstSync='1' then
-      state := ...;
+      state := initial;
+      
     elsif rising_edge(clk) then
       case state is
         when initial =>
-          ...
+          if (goRise = '1' and hasCredit = '1') then
+            state := S1;
+            decCredit <= '1'; --aqui o arriba?
+          end if;
+        when S1 =>
+            if (goRise = '1') then
+                state := S2;
+            end if;
+        when S2 =>
+            if(goRise = '1') then
+                state := S3;
+            end if;
+        when S3 =>
+            if(goRise = '1') then
+                state := reward;
+            end if;
+        when reward =>
+            state := initial;
+            incCredit <= '1'; --aqui o arriba?
       end case;
     end if;
   end process;  
@@ -124,11 +158,16 @@ begin
   cycleCounter :  
   process (clk)
     constant CYCLES : natural := ms2cycles(FREQ_KHZ, 50);
-    variable count  : natural range ... := ...;
+    variable count  : natural range 0 to CYCLES-1 := 0;
   begin
-    ...
+    
     if rising_edge(clk) then
-      ...
+      count := count+1;
+      if(count = CYCLES-1) then
+        cycleCntTC <= '1';
+      else 
+        cycleCntTC <= '0';
+      end if;
     end if;
   end process;
      
@@ -138,17 +177,23 @@ begin
     process (rstSync, clk)
     begin
       if rstSync='1' then
-        reel(i) <= ...;
+        reel(i) <= (others => '0');
       elsif rising_edge(clk) then
-        if spin(i)='1' then
-          ...
-        end if;
+        if(cycleCntTc = '1') then
+            if spin(i)='1' then
+                if (reel(i) = "0101") then
+                    reel(i) <= "0000";
+                else
+                    reel(i) <= reel(i)+1;
+                end if;
+            end if;
+         end if;
       end if;
     end process; 
   end generate;
- 
+  
   creditComparator: 
-  hasCredit <= ...;
+  hasCredit <= '1' when credit > 0 else '0';
   
   creditRegister :
   process (rstSync, clk)
@@ -157,16 +202,23 @@ begin
       credit <= (others => '0');    
     elsif rising_edge(clk) then
       if coinRise='1' then
-        ...
+        credit <= credit+1;
       elsif decCredit='1' then
-        ...
+        credit <= credit-1;
       elsif incCredit='1' then
-        ...
+        if(reel(0) = reel(1) and reel(1) = reel(0)) then
+            credit <= credit+3;
+        elsif ( (reel(0) = reel(1)) or (reel(0) = reel(2)) or (reel(1) = reel(2)) ) then
+            credit <= credit+2;
+        end if;
       end if;
    end if; 
   end process; 
   
+ bins_aux <= std_logic_vector(credit) & std_logic_vector(reel(2)) & std_logic_vector(reel(1)) & std_logic_vector(reel(0));
   displayInterface : segsBankRefresher
-    ... 
+    generic map(FREQ_KHZ => FREQ_KHZ, SIZE => 4)
+    port map(clk => clk, ens => "1111", bins => bins_aux, dps => "1000", an_n => an_n, segs_n => segs_n);
+  
 
 end syn;

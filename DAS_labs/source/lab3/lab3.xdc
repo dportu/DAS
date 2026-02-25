@@ -23,8 +23,8 @@ set_property CONFIG_VOLTAGE 3.3 [current_design];
 #
 # Reloj del sistema: 100 MHz
 #
-set_property -dict { PACKAGE_PIN W5 IOSTANDARD LVCMOS33 } [get_ports clk];
-create_clock -name sysClk -period 10.0 -waveform {0 5} [get_ports clk];
+set_property -dict { PACKAGE_PIN W5 IOSTANDARD LVCMOS33 } [get_ports osc];
+create_clock -name sysClk -period 10.0 -waveform {0 5} [get_ports osc];
 
 #
 # Pines conectados a los pulsadores
