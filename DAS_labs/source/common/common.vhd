@@ -8,6 +8,21 @@ function log2(v : in natural) return natural;
 function ms2cycles(FREQ_KHZ : in natural ; BOUNCE_MS : in natural) return natural;
  --...
  
+    -- Practica 4 --
+component ps2receiver is 
+    port (
+        -- host side
+        clk        : in  std_logic;   -- reloj del sistema
+        rst        : in  std_logic;   -- reset síncrono del sistema      
+        dataRdy    : out std_logic;   -- se activa durante 1 ciclo cada vez que hay un nuevo dato recibido
+        data       : out std_logic_vector (7 downto 0);  -- dato recibido
+        -- PS2 side
+        ps2Clk     : in  std_logic;   -- entrada de reloj del interfaz PS2
+        ps2Data    : in  std_logic    -- entrada de datos serie del interfaz PS2
+      );
+end component;
+    
+    
  
     -- Practica 3 --
     
