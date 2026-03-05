@@ -42,6 +42,8 @@ architecture syn of ps2receiver is
   signal ps2ClkSync, ps2DataSync, ps2ClkFall: std_logic;
   signal lastBit, parityOK: std_logic;
 
+  signal aux : std_logic;
+
 begin
 
   ps2ClkSynchronizer : synchronizer
@@ -81,23 +83,20 @@ begin
   process (clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
+      if rst = '1' or lastBit = '1' then
         ps2DataShf <= (others => '1');
-      elsif lastBit = '1' or parityOK = '1' then -- ?
-        ps2DataShf <= (others => '1');  
       elsif ps2ClkFall = '1' then
-        ps2DataShf <= ps2DataShf(9 downto 0) & ps2DataSync;
+        ps2DataShf <= ps2DataSync & ps2DataShf(9 downto 0);
       end if;
     end if;
   end process;
 
   oddParityCheker :
   process(ps2DataShf)
-    variable aux : std_logic;
   begin
-    aux := '1';  -- inicializamos a 1 para paridad impar
+    aux <= '1';  -- inicializamos a 1 para paridad impar
     for i in 1 to 9 loop   -- posiciones 1..8 = datos, posición 9 = paridad
-      aux := aux xor ps2DataShf(i);
+      aux <= aux xor ps2DataShf(i);
     end loop;
     parityOK <= aux;
   end process;

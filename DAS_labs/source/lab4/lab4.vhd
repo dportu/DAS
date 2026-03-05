@@ -52,16 +52,13 @@ architecture syn of lab4 is
   signal halfPeriod  : natural;
   signal data        : std_logic_vector(7 downto 0);
   signal soundEnable : std_logic;
-  
-  -- para evitar error al concatenar para la instanciacion de segsBankRefresher
-  signal displayBins : std_logic_vector(15 downto 0);
 
   -- Descomentar para instrumentar el diseño
-   attribute mark_debug : string;
-   attribute mark_debug of ps2Clk  : signal is "true";
-   attribute mark_debug of ps2Data : signal is "true";
-   attribute mark_debug of dataRdy : signal is "true";
-   attribute mark_debug of data    : signal is "true";
+  -- attribute mark_debug : string;
+  -- attribute mark_debug of ps2Clk  : signal is "true";
+  -- attribute mark_debug of ps2Data : signal is "true";
+  -- attribute mark_debug of dataRdy : signal is "true";
+  -- attribute mark_debug of data    : signal is "true";
 
 begin
 
@@ -140,85 +137,53 @@ begin
     type states is (S0, S1, S2, S3); 
     variable state: states := S0;
   begin 
-    -- Valores por defecto de salidas
-    ldCode      <= '0';
-    soundEnable <= '0';
-
-    if rising_edge(clk) then
-      if rstSync = '1' then
-        state := S0;
-      else
-        case state is
-
-          -- S0: Esperando byte AA (power-on del teclado)
-          when S0 =>
+    soundEnable <= '0'; -- ?
+    ldCode <= '0';      -- ?
+    case state is
+        when S0 =>
             soundEnable <= '0';
-            if dataRdy = '1' and data = X"AA" then
-              state := S0;           -- permanece; próxima tecla irá a S1
-            elsif dataRdy = '1' and data /= X"F0" then
-              ldCode <= '1';         -- carga el nuevo scancode
-              state  := S1;
-            end if;
-
-          -- S1: Tecla presionada, sonido habilitado
-          when S1 =>
+          
+        when S1 =>
             soundEnable <= '1';
-            if dataRdy = '1' then
-              if data = X"F0" then
-                state := S2;         -- llega código de depresión
-              else
-                ldCode <= '1';       -- nueva tecla presionada
-                state  := S1;
-              end if;
-            end if;
-
-          -- S2: Se recibió F0, esperando scancode de depresión
-          when S2 =>
+            
+        when S2 =>
             soundEnable <= '1';
-            if dataRdy = '1' then
-              if data = code then
-                state := S3;         -- es la tecla que estaba sonando -> silencio
-              elsif data /= X"F0" then
-                state := S1;         -- era otra tecla; seguimos sonando
-              end if;
-            end if;
-
-          -- S3: Tecla depresionada, silencio hasta nueva pulsación
-          when S3 =>
+        
+        when S3 =>
             soundEnable <= '0';
-            if dataRdy = '1' then
-              if data = X"F0" then
-                state := S3;         -- otro F0 pendiente
-              else
-                ldCode <= '1';
-                state  := S1;        -- nueva tecla presionada
-              end if;
+      end case;
+      
+    if rstSync='1' then
+      state := S0;
+      
+    elsif rising_edge(clk) then
+      case state is
+        when S0 =>
+          if (dataRdy = '1' and data /= X"F0") then
+            state := S1;
+            ldCode <= '1';
+          elsif (dataRdy = '1' and data = X"F0") then
+          end if;
+        when S1 =>
+            if (dataRdy = '1' and data = X"F0") then
+                state := S2;
             end if;
-
-        end case;
-      end if;
+        when S2 =>
+            if(dataRdy = '1' and data = code) then
+                state := S0;
+            end if;
+        when S3 =>
+            if(dataRdy = '1') then
+                state := S0;
+            end if;
+      end case;
     end if;
   end process;  
   
   speaker <= 
-    speakerTFF when soundEnable = '1' else '0';
+    speakerTFF when ... else ...;
 
-
-  displayBins <= "0000" & code(7 downto 0) & "0000";
-  
-  
   displayInterface : segsBankRefresher
-    generic map (
-      FREQ_KHZ => FREQ_KHZ,
-      SIZE     => 4
-    )
-    port map (
-      clk    => clk,
-      ens    => "0110",
-      bins   => displayBins,
-      dps    => "0000",
-      an_n   => an_n,
-      segs_n => segs_n
-    );
+    ...
   
 end syn;
