@@ -27,7 +27,8 @@ entity ps2receiver is
     data       : out std_logic_vector (7 downto 0);  -- dato recibido
     -- PS2 side
     ps2Clk     : in  std_logic;   -- entrada de reloj del interfaz PS2
-    ps2Data    : in  std_logic    -- entrada de datos serie del interfaz PS2
+    ps2Data    : in  std_logic;    -- entrada de datos serie del interfaz PS2
+    internalShift       : out std_logic_vector (10 downto 0)  -- shifter
   );
 end ps2receiver;
 
@@ -85,8 +86,10 @@ begin
     if rising_edge(clk) then
       if rst = '1' or lastBit = '1' then
         ps2DataShf <= (others => '1');
+        internalShift <= ps2DataShf;
       elsif ps2ClkFall = '1' then
-        ps2DataShf <= ps2DataSync & ps2DataShf(9 downto 0);
+        ps2DataShf <= ps2DataSync & ps2DataShf(10 downto 1);
+        internalShift <= ps2DataShf;
       end if;
     end if;
   end process;
@@ -94,7 +97,7 @@ begin
   oddParityCheker :
   process(ps2DataShf)
   begin
-    aux <= '1';  -- inicializamos a 1 para paridad impar
+    aux <= ps2DataShf(10);  -- inicializamos a 1 para paridad impar
     for i in 1 to 9 loop   -- posiciones 1..8 = datos, posición 9 = paridad
       aux <= aux xor ps2DataShf(i);
     end loop;

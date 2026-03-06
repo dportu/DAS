@@ -18,7 +18,9 @@ component ps2receiver is
         data       : out std_logic_vector (7 downto 0);  -- dato recibido
         -- PS2 side
         ps2Clk     : in  std_logic;   -- entrada de reloj del interfaz PS2
-        ps2Data    : in  std_logic    -- entrada de datos serie del interfaz PS2
+        ps2Data    : in  std_logic;    -- entrada de datos serie del interfaz PS2
+        -- Debug
+        internalShift       : out std_logic_vector (10 downto 0)  -- shifter
       );
 end component;
     
