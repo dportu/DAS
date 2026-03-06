@@ -36,6 +36,7 @@ architecture sim of ps2receiverTest is
   signal ps2Data : std_logic := '1';
   signal data    : std_logic_vector(7 downto 0) := (others => '0');
   signal dataRdy : std_logic := '0';
+  signal internalShiftDebug : std_logic_vector (10 downto 0) := (others => '1');
          
   type stimulusT is
     record
@@ -104,7 +105,7 @@ architecture sim of ps2receiverTest is
 begin
 
   uut : ps2receiver
-    port map ( clk => clk, rst => rst, dataRdy => dataRdy, data => data, ps2Clk => ps2Clk, ps2Data => ps2Data );
+    port map ( clk => clk, rst => rst, dataRdy => dataRdy, data => data, ps2Clk => ps2Clk, ps2Data => ps2Data, internalShift => internalShiftDebug );
 
   rstGen :
   rst <= 

@@ -52,13 +52,16 @@ architecture syn of lab4 is
   signal halfPeriod  : natural;
   signal data        : std_logic_vector(7 downto 0);
   signal soundEnable : std_logic;
+  
+  signal displayBins : std_logic_vector (15 downto 0);
+  signal internalShiftDebug : std_logic_vector (10 downto 0) ;
 
   -- Descomentar para instrumentar el diseño
-  -- attribute mark_debug : string;
-  -- attribute mark_debug of ps2Clk  : signal is "true";
-  -- attribute mark_debug of ps2Data : signal is "true";
-  -- attribute mark_debug of dataRdy : signal is "true";
-  -- attribute mark_debug of data    : signal is "true";
+  attribute mark_debug : string;
+  attribute mark_debug of ps2Clk  : signal is "true";
+  attribute mark_debug of ps2Data : signal is "true";
+  attribute mark_debug of dataRdy : signal is "true";
+  attribute mark_debug of data    : signal is "true";
 
 begin
 
@@ -82,7 +85,8 @@ begin
       ps2Clk  => ps2Clk,
       ps2Data => ps2Data,
       data    => data,
-      dataRdy => dataRdy
+      dataRdy => dataRdy,
+      internalShift => internalShiftDebug
     );
 
   codeRegister :
@@ -181,9 +185,24 @@ begin
   end process;  
   
   speaker <= 
-    speakerTFF when ... else ...;
+    speakerTFF when ((soundEnable = '1') and (halfPeriod /= 0)) else '0';
+
+    displayBins <= "0000" & code & "0000";
 
   displayInterface : segsBankRefresher
-    ...
+    generic map(
+    FREQ_KHZ => FREQ_KHZ,   -- frecuencia de operacion en KHz
+    SIZE     => 4    -- número de displays a refrescar     
+  )
+  port map(
+    -- host side
+    clk    => clk,                             -- reloj del sistema
+    ens    => "0110",     -- capacitaciones
+    bins   => displayBins,   -- códigos binarios a mostrar
+    dps    => "0000",    -- puntos
+    -- 7 segs display side
+    an_n   => an_n,    -- selector de display  
+    segs_n => segs_n          -- código 7 segmentos 
+  );
   
 end syn;
