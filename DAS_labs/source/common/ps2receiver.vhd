@@ -95,14 +95,15 @@ begin
   end process;
 
   oddParityCheker :
-  process(ps2DataShf)
-  begin
-    aux <= ps2DataShf(10);  -- inicializamos a 1 para paridad impar
-    for i in 1 to 9 loop   -- posiciones 1..8 = datos, posición 9 = paridad
-      aux <= aux xor ps2DataShf(i);
-    end loop;
-    parityOK <= aux;
-  end process;
+process(ps2DataShf)
+  variable auxVar : std_logic;
+begin
+  auxVar := '0';
+  for i in 1 to 9 loop
+    auxVar := auxVar xor ps2DataShf(i);
+  end loop;
+  parityOK <= auxVar;
+end process;
 
   lastBitCheker :
   lastBit <= not ps2DataShf(0);  
