@@ -1,0 +1,315 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Mon Mar 16 19:27:49 2026
+# Process ID: 20252
+# Current directory: C:/Users/usuario_local/Downloads/DAS_labs/projects/lab5loopback/lab5loopback.runs/synth_1
+# Command line: vivado.exe -log lab5loopback.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source lab5loopback.tcl
+# Log file: C:/Users/usuario_local/Downloads/DAS_labs/projects/lab5loopback/lab5loopback.runs/synth_1/lab5loopback.vds
+# Journal file: C:/Users/usuario_local/Downloads/DAS_labs/projects/lab5loopback/lab5loopback.runs/synth_1\vivado.jou
+# Running On: PTO0810, OS: Windows, CPU Frequency: 2112 MHz, CPU Physical cores: 20, Host memory: 34013 MB
+#-----------------------------------------------------------
+source lab5loopback.tcl -notrace
+Command: synth_design -top lab5loopback -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 15368
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2724.043 ; gain = 409.426
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'lab5loopback' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.vhd:35]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-3491] module 'synchronizer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:21' bound to instance 'rstSynchronizer' of component 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.vhd:47]
+INFO: [Synth 8-638] synthesizing module 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:35]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b0 
+INFO: [Synth 8-256] done synthesizing module 'synchronizer' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:35]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BAUDRATE bound to: 1200 - type: integer 
+INFO: [Synth 8-3491] module 'rs232receiver' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232receiver.vhd:24' bound to instance 'receiver' of component 'rs232receiver' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.vhd:51]
+INFO: [Synth 8-638] synthesizing module 'rs232receiver' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232receiver.vhd:44]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BAUDRATE bound to: 1200 - type: integer 
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b1 
+INFO: [Synth 8-3491] module 'synchronizer' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:21' bound to instance 'RxDSynchronizer' of component 'synchronizer' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232receiver.vhd:51]
+INFO: [Synth 8-638] synthesizing module 'synchronizer__parameterized1' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:35]
+	Parameter STAGES bound to: 2 - type: integer 
+	Parameter XPOL bound to: 1'b1 
+INFO: [Synth 8-256] done synthesizing module 'synchronizer__parameterized1' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/synchronizer.vhd:35]
+INFO: [Synth 8-256] done synthesizing module 'rs232receiver' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232receiver.vhd:44]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BAUDRATE bound to: 1200 - type: integer 
+INFO: [Synth 8-3491] module 'rs232transmitter' declared at 'C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232transmitter.vhd:24' bound to instance 'transmitter' of component 'rs232transmitter' [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.vhd:55]
+INFO: [Synth 8-638] synthesizing module 'rs232transmitter' [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232transmitter.vhd:45]
+	Parameter FREQ_KHZ bound to: 100000 - type: integer 
+	Parameter BAUDRATE bound to: 1200 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'rs232transmitter' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232transmitter.vhd:45]
+INFO: [Synth 8-256] done synthesizing module 'lab5loopback' (0#1) [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.vhd:35]
+WARNING: [Synth 8-3848] Net data in module/entity rs232receiver does not have driver. [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232receiver.vhd:34]
+WARNING: [Synth 8-3848] Net TxD in module/entity rs232transmitter does not have driver. [C:/Users/usuario_local/Downloads/DAS_labs/source/common/rs232transmitter.vhd:37]
+WARNING: [Synth 8-7129] Port TxD in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[7] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[6] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[5] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[4] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[3] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[2] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[1] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[0] in module rs232transmitter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[7] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[6] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[5] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[4] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[3] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[2] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[1] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port data[0] in module rs232receiver is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst in module rs232receiver is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2815.402 ; gain = 500.785
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2833.328 ; gain = 518.711
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2833.328 ; gain = 518.711
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2833.328 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.xdc]
+Finished Parsing XDC File [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/usuario_local/Downloads/DAS_labs/source/lab5loopback/lab5loopback.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/lab5loopback_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/lab5loopback_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2939.969 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2939.969 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'fsm.state_reg' in module 'rs232receiver'
+INFO: [Synth 8-802] inferred FSM for state register 'fsm.state_reg' in module 'rs232transmitter'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                      s0 |                      00000000001 |                             0000
+                      s1 |                      00000000010 |                             0001
+                      s2 |                      00000000100 |                             0010
+                      s3 |                      00000001000 |                             0011
+                      s4 |                      00000010000 |                             0100
+                      s5 |                      00000100000 |                             0101
+                      s6 |                      00001000000 |                             0110
+                      s7 |                      00010000000 |                             0111
+                      s8 |                      00100000000 |                             1000
+                      s9 |                      01000000000 |                             1001
+                     s10 |                      10000000000 |                             1010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'fsm.state_reg' using encoding 'one-hot' in module 'rs232receiver'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                      s0 |                      00000000001 |                             0000
+                      s1 |                      00000000010 |                             0001
+                      s2 |                      00000000100 |                             0010
+                      s3 |                      00000001000 |                             0011
+                      s4 |                      00000010000 |                             0100
+                      s5 |                      00000100000 |                             0101
+                      s6 |                      00001000000 |                             0110
+                      s7 |                      00010000000 |                             0111
+                      s8 |                      00100000000 |                             1000
+                      s9 |                      01000000000 |                             1001
+                     s10 |                      10000000000 |                             1010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'fsm.state_reg' using encoding 'one-hot' in module 'rs232transmitter'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 3     
++---Muxes : 
+	  11 Input   11 Bit        Muxes := 2     
+	   2 Input   11 Bit        Muxes := 20    
+	  11 Input    1 Bit        Muxes := 6     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port TxD in module lab5loopback is either unconnected or has no load
+WARNING: [Synth 8-7129] Port rst in module lab5loopback is either unconnected or has no load
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[10]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[9]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[8]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[7]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[6]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[5]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[4]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[3]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[2]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[1]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (receiver/FSM_onehot_fsm.state_reg[0]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[10]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[9]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[8]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[7]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[6]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[5]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[4]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[3]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[2]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[1]) is unused and will be removed from module lab5loopback.
+WARNING: [Synth 8-3332] Sequential element (transmitter/FSM_onehot_fsm.state_reg[0]) is unused and will be removed from module lab5loopback.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |OBUFT |     1|
++------+------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 25 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:09 ; elapsed = 00:00:12 . Memory (MB): peak = 2939.969 ; gain = 518.711
+Synthesis Optimization Complete : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2939.969 ; gain = 625.352
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2939.969 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2939.969 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 48f921bb
+INFO: [Common 17-83] Releasing license: Synthesis
+31 Infos, 46 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 2939.969 ; gain = 1027.559
+INFO: [Common 17-1381] The checkpoint 'C:/Users/usuario_local/Downloads/DAS_labs/projects/lab5loopback/lab5loopback.runs/synth_1/lab5loopback.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file lab5loopback_utilization_synth.rpt -pb lab5loopback_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Mar 16 19:28:15 2026...
