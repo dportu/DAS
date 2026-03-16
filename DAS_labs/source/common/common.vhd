@@ -8,6 +8,45 @@ function log2(v : in natural) return natural;
 function ms2cycles(FREQ_KHZ : in natural ; BOUNCE_MS : in natural) return natural;
  --...
  
+
+
+    -- Practica 5 --
+component rs232receiver is
+  generic (
+    FREQ_KHZ : natural;  -- frecuencia de operacion en KHz
+    BAUDRATE : natural   -- velocidad de comunicacion
+  );
+  port (
+    -- host side
+    clk     : in  std_logic;   -- reloj del sistema
+    rst     : in  std_logic;   -- reset síncrono del sistema
+    dataRdy : out std_logic;   -- se activa durante 1 ciclo cada vez que hay un nuevo dato recibido
+    data    : out std_logic_vector (7 downto 0);   -- dato recibido
+    -- RS232 side
+    RxD     : in  std_logic    -- entrada de datos serie del interfaz RS-232
+  );
+end component;
+
+component rs232transmitter is
+  generic (
+    FREQ_KHZ : natural;  -- frecuencia de operacion en KHz
+    BAUDRATE : natural   -- velocidad de comunicacion
+  );
+  port (
+    -- host side
+    clk     : in  std_logic;   -- reloj del sistema
+    rst     : in  std_logic;   -- reset síncrono del sistema
+    dataRdy : in  std_logic;   -- se activa durante 1 ciclo cada vez que hay un nuevo dato a transmitir
+    data    : in  std_logic_vector (7 downto 0);   -- dato a transmitir
+    busy    : out std_logic;   -- se activa mientras esta transmitiendo
+    -- RS232 side
+    TxD     : out std_logic    -- salida de datos serie del interfaz RS-232
+  );
+end component;
+
+
+
+
     -- Practica 4 --
 component ps2receiver is 
     port (
