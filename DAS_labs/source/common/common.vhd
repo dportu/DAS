@@ -11,6 +11,40 @@ function ms2cycles(FREQ_KHZ : in natural ; BOUNCE_MS : in natural) return natura
 
 
     -- Practica 5 --
+    
+component modCounter is
+generic
+(
+    MAXVAL : natural -- valor mÃ¡ximo alcanzable
+);
+port
+(
+    clk : in std_logic; -- reloj del sistema
+    rst : in std_logic; -- reset (puesta a 0) sÃ­ncrono
+    ce : in std_logic; -- capacitaciÃ³n de cuenta
+    tc : out std_logic; -- fin de cuenta
+    count : out std_logic_vector(log2(MAXVAL)-1 downto 0) -- cuenta
+);
+end component;
+
+component fifoQueue is
+generic (
+    WIDTH : natural; -- anchura de la palabra de fifo
+    DEPTH : natural -- numero de palabras en fifo
+);
+port (
+    clk : in std_logic; -- reloj del sistema
+    rst : in std_logic; -- reset síncrono del sistema
+    wrE : in std_logic; -- se activa durante 1 ciclo para escribir un dato en la fifo
+    dataIn : in std_logic_vector(WIDTH-1 downto 0); -- dato a escribir
+    rdE : in std_logic; -- se activa durante 1 ciclo para leer un dato de la fifo
+    dataOut : out std_logic_vector(WIDTH-1 downto 0); -- dato a leer
+    numData : out std_logic_vector(log2(DEPTH)-1 downto 0); -- numero de datos almacenados
+    full : out std_logic; -- indicador de fifo llena
+    empty : out std_logic -- indicador de fifo vacia
+);
+end component;
+    
 component rs232receiver is
   generic (
     FREQ_KHZ : natural;  -- frecuencia de operacion en KHz
@@ -19,7 +53,7 @@ component rs232receiver is
   port (
     -- host side
     clk     : in  std_logic;   -- reloj del sistema
-    rst     : in  std_logic;   -- reset síncrono del sistema
+    rst     : in  std_logic;   -- reset sï¿½ncrono del sistema
     dataRdy : out std_logic;   -- se activa durante 1 ciclo cada vez que hay un nuevo dato recibido
     data    : out std_logic_vector (7 downto 0);   -- dato recibido
     -- RS232 side
@@ -35,7 +69,7 @@ component rs232transmitter is
   port (
     -- host side
     clk     : in  std_logic;   -- reloj del sistema
-    rst     : in  std_logic;   -- reset síncrono del sistema
+    rst     : in  std_logic;   -- reset sï¿½ncrono del sistema
     dataRdy : in  std_logic;   -- se activa durante 1 ciclo cada vez que hay un nuevo dato a transmitir
     data    : in  std_logic_vector (7 downto 0);   -- dato a transmitir
     busy    : out std_logic;   -- se activa mientras esta transmitiendo
@@ -52,7 +86,7 @@ component ps2receiver is
     port (
         -- host side
         clk        : in  std_logic;   -- reloj del sistema
-        rst        : in  std_logic;   -- reset síncrono del sistema      
+        rst        : in  std_logic;   -- reset sï¿½ncrono del sistema      
         dataRdy    : out std_logic;   -- se activa durante 1 ciclo cada vez que hay un nuevo dato recibido
         data       : out std_logic_vector (7 downto 0);  -- dato recibido
         -- PS2 side
@@ -70,24 +104,24 @@ end component;
 component segsBankRefresher is
   generic(
     FREQ_KHZ : natural;   -- frecuencia de operacion en KHz
-    SIZE     : natural    -- número de displays a refrescar     
+    SIZE     : natural    -- nï¿½mero de displays a refrescar     
   );
   port (
     -- host side
     clk    : in std_logic;                              -- reloj del sistema
     ens    : in std_logic_vector (SIZE-1 downto 0);     -- capacitaciones
-    bins   : in std_logic_vector (4*SIZE-1 downto 0);   -- códigos binarios a mostrar
+    bins   : in std_logic_vector (4*SIZE-1 downto 0);   -- cï¿½digos binarios a mostrar
     dps    : in std_logic_vector (SIZE-1 downto 0);     -- puntos
     -- 7 segs display side
     an_n   : out std_logic_vector (SIZE-1 downto 0);    -- selector de display  
-    segs_n : out std_logic_vector (7 downto 0)          -- código 7 segmentos 
+    segs_n : out std_logic_vector (7 downto 0)          -- cï¿½digo 7 segmentos 
   );
 end component;
     
 component asyncRstSynchronizer is
   generic (
-    STAGES : natural;         -- número de biestables del sincronizador
-    XPOL   : std_logic        -- polaridad (en reposo) de la señal de reset
+    STAGES : natural;         -- nï¿½mero de biestables del sincronizador
+    XPOL   : std_logic        -- polaridad (en reposo) de la seï¿½al de reset
   );
   port (
     clk    : in  std_logic;   -- reloj del sistema
@@ -104,7 +138,7 @@ component freqSynthesizer
   );
   port (
     clkIn  : in  std_logic;   -- reloj de entrada
-    rdy    : out std_logic;   -- indica si el reloj de salida es válido
+    rdy    : out std_logic;   -- indica si el reloj de salida es vï¿½lido
     clkOut : out std_logic    -- reloj de salida
   );
 end component;
