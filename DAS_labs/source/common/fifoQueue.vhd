@@ -32,7 +32,7 @@ architecture syn of fifoQueue is
     signal wrPointer : natural range 0 to DEPTH-1 := 0;
     signal rdPointer : natural range 0 to DEPTH-1 := 0;
 
-    -- wrFifo y rdFifo filtran las peticiones cuando la FIFO est· llena/vacÌa
+   
     signal wrFifo : std_logic;
     signal rdFifo : std_logic;
 
@@ -42,7 +42,7 @@ architecture syn of fifoQueue is
 
 begin
 
-    -- Solo se escribe si no est· llena, solo se lee si no est· vacÌa
+    -- Solo se escribe si no est√° llena, solo se lee si no est√° vac√≠a
     wrFifo <= wrE and not isFull;
     rdFifo <= rdE and not isEmpty;
 
@@ -56,13 +56,13 @@ begin
 
     -- numData: diferencia circular entre punteros.
     -- Cuando isFull='1' y los punteros coinciden, hay DEPTH datos,
-    -- pero numData solo tiene log2(DEPTH) bits asÌ que se representa como 0
-    -- (comportamiento est·ndar: numData solo es v·lido cuando not full).
+    -- pero numData solo tiene log2(DEPTH) bits as√≠ que se representa como 0
+    -- (comportamiento est√°ndar: numData solo es v√°lido cuando not full).
     numData <= std_logic_vector(
                  to_unsigned((wrPointer - rdPointer + DEPTH) mod DEPTH,
                              log2(DEPTH)));
 
-    -- Banco de registros + lÛgica FSMD de punteros y flags
+    -- Banco de registros + l√≥gica FSMD de punteros y flags
     registerFile :
     process(clk)
     begin
@@ -70,6 +70,7 @@ begin
             if rst = '1' then
                 wrPointer <= 0;
                 rdPointer <= 0;
+                
                 isFull    <= '0';
                 isEmpty   <= '1';
             else
@@ -89,14 +90,14 @@ begin
                     dataOut   <= regFile(rdPointer);
                     rdPointer <= nextRdPointer;
                     isFull    <= '0';
-                    -- La FIFO se vacÌa cuando el siguiente rdPointer alcanza wrPointer
+                    -- La FIFO se vac√≠a cuando el siguiente rdPointer alcanza wrPointer
                     if nextRdPointer = wrPointer then
                         isEmpty <= '1';
                     end if;
                 end if;
 
-                -- Escritura y lectura simult·neas: los flags no cambian
-                -- (se aÒade un dato y se elimina otro, el nivel es el mismo)
+                -- Escritura y lectura simult√°neas: los flags no cambian
+                -- (se a√±ade un dato y se elimina otro, el nivel es el mismo)
                 if wrFifo = '1' and rdFifo = '1' then
                     isFull  <= '0';
                     isEmpty <= '0';
