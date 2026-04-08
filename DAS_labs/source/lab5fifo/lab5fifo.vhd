@@ -63,12 +63,12 @@ begin
     generic map ( FREQ_KHZ => FREQ_KHZ, BAUDRATE => BAUDRATE )
     port map ( clk => clk, rst => rstSync, dataRdy => dataRdyRx, data => dataRx, RxD => RxD );
 
---  fifo : fifoQueue
---    generic map ( WIDTH => 8, DEPTH => 16 )
---    port map ( clk => clk, rst => rstSync, wr_en => dataRdyRx, din => dataRx, rd_en => dataRdyTx, dout => dataTx, numData => numData, full => full, empty => empty );
+  fifo : fifoQueue
+    generic map ( WIDTH => 8, DEPTH => 16 )
+    port map ( clk => clk, rst => rstSync, wr_en => dataRdyRx, din => dataRx, rd_en => dataRdyTx, dout => dataTx, numData => numData, full => full, empty => empty );
 
-    fifo: fifo_generator_0
-        port map(clk => clk, srst => rstSync, wr_en => dataRdyRx, din => dataRx, rd_en => dataRdyTx, dout => dataTx, full => full, empty => empty);
+--    fifo: fifo_generator_0
+--        port map(clk => clk, srst => rstSync, wr_en => dataRdyRx, din => dataRx, rd_en => dataRdyTx, dout => dataTx, full => full, empty => empty);
 
   -- Leemos de la FIFO (y transmitimos) cuando el transmisor no estÃ¡ ocupado,
   -- hay datos en la FIFO y la transmisiÃ³n estÃ¡ habilitada.
@@ -88,22 +88,22 @@ begin
   en <= full or empty;
 
   -- LEDs: tantos encendidos como datos haya en la FIFO
-  -- numDataDecoder:
-    --   process( numData, full )
-    --   begin
-    --     leds <= (others => '0');
-    --     if full = '1' then
-    --       leds <= (others => '1');
-    --     else
-    --       for i in 0 to 15 loop
-    --         if i < to_integer(unsigned(numData)) then
-    --           leds(i) <= '1';
-    --         end if;
-    --       end loop;
-    --     end if;
-    --   end process;
+   numDataDecoder:
+       process( numData, full )
+       begin
+         leds <= (others => '0');
+         if full = '1' then
+           leds <= (others => '1');
+         else
+           for i in 0 to 15 loop
+             if i < to_integer(unsigned(numData)) then
+               leds(i) <= '1';
+             end if;
+           end loop;
+         end if;
+       end process;
     
-    leds <= (others => '0');
+    --leds <= (others => '0');
   
   displayInterface : segsBankRefresher
     generic map ( FREQ_KHZ => FREQ_KHZ, SIZE => 4 )
