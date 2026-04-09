@@ -10,6 +10,22 @@ function ms2cycles(FREQ_KHZ : in natural ; BOUNCE_MS : in natural) return natura
  
 
 
+  --  Practica 6 --
+component lab6damero is
+  port ( 
+    clk     : in  std_logic;
+    hSync   : out std_logic;
+    vSync   : out std_logic;
+    RGB     : out std_logic_vector(11 downto 0)
+  );
+end component;
+
+
+
+
+
+
+
     -- Practica 5 --
     
 component modCounter is
