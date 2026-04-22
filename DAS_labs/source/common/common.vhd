@@ -38,6 +38,26 @@ end component;
 
 
   --  Practica 6 --
+
+component vgaRefresher is
+  generic(
+    FREQ_DIV  : natural  -- razon entre la frecuencia de reloj del sistema y 25 MHz
+  );
+  port ( 
+    -- host side
+    clk   : in  std_logic;   -- reloj del sistema
+    line  : out std_logic_vector(9 downto 0);   -- numero de linea que se esta barriendo
+    pixel : out std_logic_vector(9 downto 0);   -- numero de pixel que se esta barriendo
+    R     : in  std_logic_vector(3 downto 0);   -- intensidad roja del pixel que se esta barriendo
+    G     : in  std_logic_vector(3 downto 0);   -- intensidad verde del pixel que se esta barriendo
+    B     : in  std_logic_vector(3 downto 0);   -- intensidad azul del pixel que se esta barriendo
+    -- VGA side
+    hSync : out std_logic := '0';   -- sincronizacion horizontal
+    vSync : out std_logic := '0';   -- sincronizacion vertical
+    RGB   : out std_logic_vector(11 downto 0) := (others => '0')   -- canales de color
+  );
+end component;
+
 component lab6damero is
   port ( 
     clk     : in  std_logic;
@@ -46,9 +66,6 @@ component lab6damero is
     RGB     : out std_logic_vector(11 downto 0)
   );
 end component;
-
-
-
 
 
 

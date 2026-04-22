@@ -103,13 +103,46 @@ begin
         newLine <= '0';
         clear   <= '0';
       else
-        ...
-        
-        if keyRdy='1' then
+        -- Por defecto, las señales strobe están inactivas.
+        -- Solo se activan durante 1 ciclo cuando corresponde.
+        charRdy <= '0';
+        newLine <= '0';
+        clear   <= '0';
+        if keyRdy = '1' then
           case state is
             when keyON =>
-                
-            
+              -- Esperando scancode de presión (tecla pulsada)
+              if key = X"F0" then
+                -- Prefijo de depresión: el siguiente byte es la tecla que se suelta
+                state := keyOFF;
+              elsif key = X"12" or key = X"59" then
+                -- Shift izquierdo o derecho pulsado
+                shiftP <= true;
+              elsif key = X"58" then
+                -- Bloq Mayús: conmuta entre activado/desactivado
+                capsOn <= not capsOn;
+              elsif key = X"76" then
+                -- ESC: borra la pantalla
+                clear <= '1';
+              elsif key = X"5A" then
+                -- Enter: salta a la siguiente línea
+                newLine <= '1';
+              else
+                -- Cualquier otra tecla: consulta la ROM para obtener el ASCII
+                if asciiCode /= X"7F" then
+                  -- Solo si es un carácter válido (0x7F = no asignado)
+                  char    <= asciiCode;
+                  charRdy <= '1';
+                end if;
+              end if;
+            when keyOFF =>
+              -- Esperando el scancode de la tecla que se soltó (se ignora)
+              if key = X"12" or key = X"59" then
+                -- Se soltó Shift
+                shiftP <= false;
+              end if;
+              -- Vuelve a esperar presiones
+              state := keyON;
           end case;
         end if;
       end if;
@@ -127,23 +160,45 @@ begin
     
   ------------------     
   
-  xCounter:
-  process (clk)
-  begin
-    ...
-  end process;
-  
-  yCounter:
-  process (clk)
-  begin
-    ...
-  end process;
+xCounter:
+process (clk)
+begin
+  if rising_edge(clk) then
+    if rstSync = '1' or clear = '1' then
+      x <= (others => '0');
+    elsif newLine = '1' then
+      x <= (others => '0');
+    elsif charRdy = '1' then
+      if x = COLSxLINE - 1 then
+        x <= (others => '0');
+      else
+        x <= x + 1;
+      end if;
+    end if;
+  end if;
+end process;
+
+yCounter:
+process (clk)
+begin
+  if rising_edge(clk) then
+    if rstSync = '1' or clear = '1' then
+      y <= (others => '0');
+    elsif newLine = '1' or (charRdy = '1' and x = COLSxLINE - 1) then
+      if y = ROWSxFRAME - 1 then
+        y <= (others => '0');
+      else
+        y <= y + 1;
+      end if;
+    end if;
+  end if;
+end process;
   
   ------------------     
 
   screenInterface: vgaTextInterface 
     generic map ( FREQ_DIV => FREQ_DIV, BGCOLOR => BGCOLOR, FGCOLOR => FGCOLOR )
-    port map ( clk => clk, clear => clear, x => std_logic_vector(x), y => std_logic_vector(y), char => char, charRdy => charRdy, col => col, uCol => open, row => row, uRow => uRow, hSync => hSync, vSync => vSync, RGB => RGBinterface );
+    port map ( clk => clk, clear => clear, x => std_logic_vector(x), y => std_logic_vector(y), char => char, dataRdy => charRdy, col => col, uCol => open, row => row, uRow => uRow, hSync => hSync, vSync => vSync, RGB => RGBinterface );
       
  ------------------     
 
@@ -151,8 +206,9 @@ begin
   process (row, col, uRow, x, y)
   begin
     RGB <= RGBinterface;
-    if ... then
-      ...
+    -- pintamos el cursor (subrayado) en las últimas dos filas de píxeles debajo del carácter
+    if col = std_logic_vector(x) and row = std_logic_vector(y) and unsigned(uRow) >= 14 then
+        RGB <= FGCOLOR;
     end if;
   end process;
   
